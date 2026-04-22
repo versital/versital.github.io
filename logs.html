@@ -299,10 +299,44 @@
     </div>
 
     <script>
+        const TUNNEL_URL = 'https://constitute-gospel-sounds-drug.trycloudflare.com';
+        const SECRET_KEY = 'tabby_secret_99_slime';
+
         async function fetchData(url) {
             const res = await fetch(url + '?v=' + new Date().getTime());
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             return await res.json();
+        }
+
+        async function runScript(scriptPath, btnElement, textId) {
+            const originalText = btnElement.innerText;
+            btnElement.innerText = '...';
+            btnElement.disabled = true;
+
+            try {
+                const response = await fetch(`${TUNNEL_URL}/run`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Tabby-Secret': SECRET_KEY
+                    },
+                    body: JSON.stringify({ script: scriptPath })
+                });
+
+                const data = await response.json();
+                const resultEl = document.getElementById(textId);
+                
+                if (response.ok) {
+                    resultEl.innerText = (data.stdout || '') + (data.stderr || '');
+                } else {
+                    resultEl.innerText = 'Error: ' + (data.error || 'Unknown failure');
+                }
+            } catch (e) {
+                document.getElementById(textId).innerText = 'Network Error: ' + e.message;
+            } finally {
+                btnElement.innerText = originalText;
+                btnElement.disabled = false;
+            }
         }
 
         async function loadAllLogs() {
@@ -360,10 +394,9 @@
                         const div = document.createElement('div');
                         div.className = 'log-entry';
                         const textId = `results-text-${idx}`;
-                        const runUrl = `https://t.me/share/url?url=Run script: ${encodeURIComponent(entry.script)}`;
                         div.innerHTML = `
                             <div class="log-header" onclick="this.parentElement.classList.toggle('open')">
-                                <a href="${runUrl}" target="_blank" class="run-btn" onclick="event.stopPropagation()">Run</a>
+                                <button class="run-btn" onclick="event.stopPropagation(); runScript('${entry.script}', this, '${textId}')">Run</button>
                                 <span class="timestamp">${entry.timestamp}</span>
                                 <span class="summary">${entry.script}</span>
                                 <span class="chevron">▼</span>
