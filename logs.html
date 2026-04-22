@@ -396,17 +396,17 @@
                         const textId = `results-text-${idx}`;
                         div.innerHTML = `
                             <div class="log-header" onclick="this.parentElement.classList.toggle('open')">
-                                <button class="run-btn" onclick="event.stopPropagation(); runScript('${entry.script}', this, '${textId}')">Run</button>
                                 <span class="timestamp">${entry.timestamp}</span>
                                 <span class="summary">${entry.script}</span>
                                 <span class="chevron">▼</span>
                             </div>
                             <div class="log-details">
-                                <div class="detail-section">
+                                <div class="detail-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <span class="detail-label">Scan Results</span>
-                                    <div class="results-wrapper">
-                                        <div id="${textId}" class="results-text">${entry.results}</div>
-                                    </div>
+                                    <button class="run-btn" onclick="event.stopPropagation(); runScript('${entry.script}', this, '${textId}')">Run</button>
+                                </div>
+                                <div class="results-wrapper">
+                                    <div id="${textId}" class="results-text">${entry.results}</div>
                                 </div>
                             </div>
                         `;
