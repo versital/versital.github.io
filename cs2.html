@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Price Tracker 🐈‍⬛🐾</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            margin: 0;
+        }
+        .slime-container {
+            background: rgba(45, 0, 77, 0.8);
+            border: 5px solid #9d4edd;
+            border-radius: 50px;
+            padding: 2rem;
+            box-shadow: 0 0 30px #7b2cbf, inset 0 0 20px #3c096c;
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+        }
+        h1 {
+            color: #c77dff;
+            text-shadow: 2px 2px #3c096c;
+            margin-bottom: 0.5rem;
+        }
+        .controls {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background: #7b2cbf;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #9d4edd;
+        }
+        .btn.active {
+            background: #c77dff;
+            color: #3c096c;
+            box-shadow: 0 0 10px #c77dff;
+        }
+        .chart-wrapper {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        .nav-link {
+            color: #c77dff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="slime-container">
+        <h1 id="caseTitle">Case Price Tracker</h1>
+        <p id="caseSubtitle">Tracking the gains (or pains). 🐈‍⬛🐾</p>
+        
+        <div class="controls">
+            <button class="btn" onclick="updateZoom('1d', this)">1 Day</button>
+            <button class="btn" onclick="updateZoom('3d', this)">3 Days</button>
+            <button class="btn" onclick="updateZoom('1w', this)">1 Week</button>
+            <button class="btn" onclick="updateZoom('1m', this)">1 Month</button>
+            <button class="btn active" onclick="updateZoom('all', this)">All Time</button>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <p><a href="dashboard.html" class="nav-link">&larr; Back to Dashboard</a></p>
+    </div>
+
+    <script>
+        let allData = [];
+        let chart;
+        let currentCase = "";
+
+        async function loadData() {
+            const params = new URLSearchParams(window.location.search);
+            currentCase = params.get('case') || 'Fracture Case';
+            document.getElementById('caseTitle').innerText = currentCase + ' Tracker';
+
+            try {
+                const response = await fetch('prices.json');
+                const fullDataset = await response.json();
+                allData = fullDataset[currentCase] || [];
+                
+                if (allData.length === 0) {
+                    alert("No data yet for " + currentCase);
+                    return;
+                }
+                
+                initChart(allData);
+            } catch (e) {
+                console.error("Failed to load data", e);
+                alert("Error loading price data...");
+            }
+        }
+
+        function initChart(data) {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            
+            const labels = data.map(d => new Date(d.timestamp).toLocaleString());
+            const prices = data.map(d => d.price);
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Price (USD)',
+                        data: prices,
+                        borderColor: '#c77dff',
+                        backgroundColor: 'rgba(199, 125, 255, 0.2)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            ticks: { color: '#e0e0e0' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#e0e0e0' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#e0e0e0' } }
+                    }
+                }
+            });
+        }
+
+        function updateZoom(range, btn) {
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const now = new Date();
+            let filteredData = allData;
+
+            if (range === '1d') {
+                filteredData = allData.filter(d => (now - new Date(d.timestamp)) <= 24 * 60 * 60 * 1000);
+            } else if (range === '3d') {
+                filteredData = allData.filter(d => (now - new Date(d.timestamp)) <= 3 * 24 * 60 * 60 * 1000);
+            } else if (range === '1w') {
+                filteredData = allData.filter(d => (now - new Date(d.timestamp)) <= 7 * 24 * 60 * 60 * 1000);
+            } else if (range === '1m') {
+                filteredData = allData.filter(d => (now - new Date(d.timestamp)) <= 30 * 24 * 60 * 60 * 1000);
+            }
+
+            chart.data.labels = filteredData.map(d => new Date(d.timestamp).toLocaleString());
+            chart.data.datasets[0].data = filteredData.map(d => d.price);
+            chart.update();
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Details | Tabby Slime</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f0f1a;
+            --card-bg: #1a1a2e;
+            --accent-color: #a855f7;
+            --text-color: #e2e8f0;
+            --text-dim: #94a3b8;
+            --success: #22c55e;
+            --bullish: #22c55e;
+            --bearish: #ef4444;
+            --stagnant: #94a3b8;
+            --border-color: rgba(168, 85, 247, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        header h1 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #3c096c;
+        }
+
+        .nav-links {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .details-container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .sentiment-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .sentiment-bullish { background: rgba(34, 197, 94, 0.2); color: var(--bullish); }
+        .sentiment-bearish { background: rgba(239, 68, 68, 0.2); color: var(--bearish); }
+        .sentiment-stagnant { background: rgba(148, 163, 184, 0.2); color: var(--stagnant); }
+
+        .chart-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chart-controls {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-controls input {
+            background: var(--bg-color);
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            padding: 5px;
+            border-radius: 5px;
+            width: 80px;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .chart-controls button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .chart-controls button:hover {
+            opacity: 0.8;
+        }
+
+        .chart-container {
+            height: 400px;
+            width: 100%;
+        }
+
+        #loading {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="case-title">Case Details 🐾</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="status.html">Status</a>
+            <a href="logs.html">Logs</a>
+        </div>
+    </header>
+
+    <div id="loading">Loading market data...</div>
+    <div class="details-container" id="details-content" style="display:none;">
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span id="sentiment-badge" class="sentiment-badge">--</span>
+                <span class="stat-label">Lowest Price</span>
+                <span id="stat-lowest" class="stat-value">--</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Market Median</span>
+                <span id="stat-median" class="stat-value">--</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">24h Volume</span>
+                <span id="stat-volume" class="stat-value">--</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Moving Avg (5)</span>
+                <span id="stat-mavg" class="stat-value">--</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">24h Change</span>
+                <span id="stat-change" class="stat-value">--</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Volatility</span>
+                <span id="stat-volatility" class="stat-value">--</span>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-controls">
+                <div class="control-group">
+                    <span>Min Y: $</span>
+                    <input type="number" id="yMinInput" step="0.01" value="0.50">
+                </div>
+                <div class="control-group">
+                    <span>Max Y: $</span>
+                    <input type="number" id="yMaxInput" step="0.01">
+                </div>
+                <div class="control-group">
+                    <span>Proj. Days:</span>
+                    <input type="number" id="projDaysInput" step="1" value="7">
+                </div>
+                <button id="projBtn">Show Projection</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let priceChart;
+        let isProjecting = false;
+
+        function calculateVolatility(prices) {
+            if (prices.length < 2) return 0;
+            const mean = prices.reduce((a, b) => a + b, 0) / prices.length;
+            const variance = prices.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / prices.length;
+            return Math.sqrt(variance);
+        }
+
+        function calculateMedian(prices) {
+            if (prices.length === 0) return 0;
+            const sorted = [...prices].sort((a, b) => a - b);
+            const mid = Math.floor(sorted.length / 2);
+            return sorted.length % 2 !== 0 
+                ? sorted[mid] 
+                : (sorted[mid - 1] + sorted[mid]) / 2;
+        }
+
+        async function loadDetails() {
+            const params = new URLSearchParams(window.location.search);
+            const caseName = params.get('case');
+
+            if (!caseName) {
+                document.getElementById('loading').innerText = 'No case specified! 🐾';
+                return;
+            }
+
+            try {
+                const response = await fetch('prices.json');
+                const data = await response.json();
+                const history = data[caseName];
+
+                if (!history || history.length === 0) {
+                    document.getElementById('loading').innerText = 'Case not found in database. 🐾';
+                    return;
+                }
+
+                const validHistory = history.filter(h => h.price > 0);
+                if (validHistory.length === 0) {
+                    document.getElementById('loading').innerText = 'No valid price data found. 🐾';
+                    return;
+                }
+
+                const latest = validHistory[validHistory.length - 1];
+                const allPrices = validHistory.map(h => h.price);
+                const median = calculateMedian(allPrices);
+
+                const windowSize = 5;
+                const recentPrices = validHistory.slice(-windowSize).map(h => h.price);
+                const movingAvg = recentPrices.reduce((a, b) => a + b, 0) / recentPrices.length;
+                
+                let sentiment = 'Stagnant';
+                let sentimentClass = 'sentiment-stagnant';
+                const diff = (latest.price - movingAvg) / movingAvg;
+
+                if (diff > 0.01) {
+                    sentiment = 'Bullish';
+                    sentimentClass = 'sentiment-bullish';
+                } else if (diff < -0.01) {
+                    sentiment = 'Bearish';
+                    sentimentClass = 'sentiment-bearish';
+                }
+
+                const dayAgoIdx = Math.max(0, validHistory.length - 24);
+                const dayAgoPrice = validHistory[dayAgoIdx].price;
+                const change24h = ((latest.price - dayAgoPrice) / dayAgoPrice * 100).toFixed(2);
+                const changeColor = change24h >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+
+                document.getElementById('case-title').innerText = caseName;
+
+                document.getElementById('stat-lowest').innerText = `$${latest.price.toFixed(2)}`;
+                document.getElementById('stat-median').innerText = `$${median.toFixed(2)}`;
+                document.getElementById('stat-volume').innerText = latest.volume || '0';
+                document.getElementById('stat-mavg').innerText = `$${movingAvg.toFixed(2)}`;
+                document.getElementById('stat-change').innerText = `${change24h}%`;
+                document.getElementById('stat-change').style.color = changeColor;
+                document.getElementById('stat-volatility').innerText = calculateVolatility(recentPrices).toFixed(3);
+                
+                const badge = document.getElementById('sentiment-badge');
+                badge.innerText = sentiment;
+                badge.className = `sentiment-badge ${sentimentClass}`;
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('details-content').style.display = 'flex';
+
+                const yMaxInput = document.getElementById('yMaxInput');
+                yMaxInput.value = (median + 1).toFixed(2);
+
+                const ctx = document.getElementById('priceChart').getContext('2d');
+                const yMinInput = document.getElementById('yMinInput');
+                
+                priceChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: validHistory.map(h => h.timestamp.split('T')[0] + ' ' + h.timestamp.split('T')[1].substring(0, 5)),
+                        datasets: [{
+                            label: 'Lowest Price',
+                            data: validHistory.map(h => h.price),
+                            borderColor: '#a855f7',
+                            backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 2
+                        }, {
+                            label: 'Projection',
+                            data: [],
+                            borderColor: '#facc15',
+                            borderWidth: 3,
+                            borderDash: [5, 5],
+                            fill: false,
+                            pointRadius: 0,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: { 
+                                grid: { color: 'rgba(255,255,255,0.05)' },
+                                ticks: { color: '#94a3b8', maxRotation: 45, minRotation: 45 }
+                            },
+                            y: { 
+                                grid: { color: 'rgba(255,255,255,0.05)' },
+                                ticks: { 
+                                    color: '#94a3b8',
+                                    callback: function(value) {
+                                        return '$' + value.toFixed(2);
+                                    }
+                                },
+                                min: parseFloat(yMinInput.value),
+                                max: parseFloat(yMaxInput.value)
+                            }
+                        }
+                    }
+                });
+
+                const projBtn = document.getElementById('projBtn');
+                const projDaysInput = document.getElementById('projDaysInput');
+
+                projBtn.onclick = () => {
+                    isProjecting = !isProjecting;
+                    projBtn.innerText = isProjecting ? 'Hide Projection' : 'Show Projection';
+                    
+                    if (isProjecting) {
+                        const days = parseInt(projDaysInput.value) || 7;
+                        const prices = validHistory.map(h => h.price);
+                        
+                        const n = prices.length;
+                        let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+                        for (let i = 0; i < n; i++) {
+                            sumX += i;
+                            sumY += prices[i];
+                            sumXY += i * prices[i];
+                            sumXX += i * i;
+                        }
+                        const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+                        const intercept = (sumY - slope * sumX) / n;
+
+                        const lastIdx = n - 1;
+                        const projectionData = new Array(n).fill(null);
+                        projectionData[lastIdx] = prices[lastIdx];
+
+                        const labels = priceChart.data.labels;
+                        const newLabels = [...labels];
+
+                        for (let i = 1; i <= days; i++) {
+                            const projectedPrice = Math.max(0, slope * (lastIdx + i) + intercept);
+                            projectionData.push(projectedPrice);
+                            newLabels.push(`Day +${i}`);
+                        }
+
+                        priceChart.data.labels = newLabels;
+                        priceChart.data.datasets[1].data = projectionData;
+                    } else {
+                        priceChart.data.labels = validHistory.map(h => h.timestamp.split('T')[0] + ' ' + h.timestamp.split('T')[1].substring(0, 5));
+                        priceChart.data.datasets[1].data = [];
+                    }
+                    priceChart.update();
+                };
+
+                yMinInput.addEventListener('input', () => {
+                    const val = parseFloat(yMinInput.value);
+                    if (!isNaN(val)) {
+                        priceChart.options.scales.y.min = val;
+                        priceChart.update();
+                    }
+                });
+
+                yMaxInput.addEventListener('input', () => {
+                    const val = parseFloat(yMaxInput.value);
+                    if (!isNaN(val)) {
+                        priceChart.options.scales.y.max = val;
+                        priceChart.update();
+                    }
+                });
+
+            } catch (e) {
+                console.error(e);
+                document.getElementById('loading').innerText = 'Error loading data. 🐾';
+            }
+        }
+
+        loadDetails();
+    </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Status | Tabby Slime</title>
+    <style>
+        :root {
+            --bg-color: #0f0f1a;
+            --card-bg: #1a1a2e;
+            --accent-color: #a855f7;
+            --text-color: #e2e8f0;
+            --text-dim: #94a3b8;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --border-color: rgba(168, 85, 247, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        header h1 {
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #3c096c;
+        }
+
+        .nav-links {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .status-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .status-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .status-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .bg-success { background-color: var(--success); box-shadow: 0 0 8px var(--success); }
+        .bg-danger { background-color: var(--danger); box-shadow: 0 0 8px var(--danger); }
+        .bg-warning { background-color: var(--warning); box-shadow: 0 0 8px var(--warning); }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .metric-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-weight: 600;
+        }
+
+        #loading {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>System Status ⚙️</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="status.html">Status</a>
+            <a href="logs.html">Logs</a>
+        </div>
+    </header>
+
+    <div id="loading">Checking system vitals...</div>
+    <div class="status-container" id="status-grid" style="display:none;">
+        
+        <div class="status-card">
+            <div class="status-header">
+                <span class="status-title">Web Server</span>
+                <span id="server-indicator" class="indicator"></span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Heartbeat</span>
+                <span id="server-heartbeat" class="metric-value">Checking...</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Latency</span>
+                <span id="server-latency" class="metric-value">Checking...</span>
+            </div>
+        </div>
+
+        <div class="status-card">
+            <div class="status-header">
+                <span class="status-title">Market Fetcher</span>
+                <span id="fetcher-indicator" class="indicator"></span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Last Update</span>
+                <span id="fetcher-time" class="metric-value">Checking...</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Cases Tracked</span>
+                <span id="fetcher-count" class="metric-value">Checking...</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Health Status</span>
+                <span id="fetcher-status" class="metric-value">Checking...</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        async function checkStatus() {
+            try {
+                const startTime = Date.now();
+                
+                const heartbeatRes = await fetch('heartbeat.json');
+                const heartbeatData = await heartbeatRes.json();
+                const latency = Date.now() - startTime;
+                
+                const statusRes = await fetch('status.json');
+                const statusData = await statusRes.json();
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('status-grid').style.display = 'grid';
+
+                const now = new Date();
+                const hbTime = new Date(heartbeatData.last_heartbeat);
+                const diffSeconds = (now - hbTime) / 1000;
+
+                const serverInd = document.getElementById('server-indicator');
+                const serverHb = document.getElementById('server-heartbeat');
+                const serverLat = document.getElementById('server-latency');
+
+                if (diffSeconds < 120) {
+                    serverInd.className = 'indicator bg-success';
+                    serverHb.innerText = 'Active';
+                } else if (diffSeconds < 600) {
+                    serverInd.className = 'indicator bg-warning';
+                    serverHb.innerText = 'Delayed';
+                } else {
+                    serverInd.className = 'indicator bg-danger';
+                    serverHb.innerText = 'Offline';
+                }
+                serverLat.innerText = `${latency}ms`;
+
+                const fetchInd = document.getElementById('fetcher-indicator');
+                const fetchTime = document.getElementById('fetcher-time');
+                const fetchCount = document.getElementById('fetcher-count');
+                const fetchStat = document.getElementById('fetcher-status');
+
+                const lastFetch = new Date(statusData.last_fetch);
+                const fetchDiffHours = (now - lastFetch) / (1000 * 60 * 60);
+
+                fetchTime.innerText = lastFetch.toLocaleString();
+                fetchCount.innerText = `${statusData.cases_tracked} / ${statusData.total_cases_configured}`;
+                fetchStat.innerText = statusData.status;
+
+                if (statusData.status === 'Healthy' && fetchDiffHours < 2) {
+                    fetchInd.className = 'indicator bg-success';
+                } else if (statusData.status !== 'Healthy') {
+                    fetchInd.className = 'indicator bg-danger';
+                } else {
+                    fetchInd.className = 'indicator bg-warning';
+                }
+
+            } catch (e) {
+                console.error(e);
+                document.getElementById('loading').innerText = 'Failed to load status. System may be critically offline. 🐾';
+            }
+        }
+
+        checkStatus();
+        setInterval(checkStatus, 30000);
+    </script>
+</body>
+</html>

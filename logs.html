@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox Logs | Tabby Slime</title>
+    <style>
+        :root {
+            --bg-color: #0f0f1a;
+            --card-bg: #1a1a2e;
+            --accent-color: #a855f7;
+            --text-color: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border-color: rgba(168, 85, 247, 0.2);
+            --hover-bg: rgba(168, 85, 247, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .nav-links {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .logs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1000px) {
+            .logs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .log-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-title {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .log-container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            min-height: 400px;
+        }
+
+        .log-entry {
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 0;
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .log-header {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            user-select: none;
+        }
+
+        .log-header:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .timestamp {
+            color: var(--accent-color);
+            font-family: 'Fira Code', monospace;
+            font-weight: bold;
+            margin-right: 15px;
+            min-width: 160px;
+            font-size: 0.85rem;
+        }
+
+        .summary {
+            color: var(--text-color);
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+
+        .chevron {
+            transition: transform 0.3s;
+            color: var(--text-dim);
+            margin-left: 10px;
+        }
+
+        .log-entry.open .chevron {
+            transform: rotate(180deg);
+        }
+
+        .log-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            padding: 0 10px;
+        }
+
+        .log-entry.open .log-details {
+            max-height: 2000px;
+            padding: 15px 10px;
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-label {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .detail-text {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .results-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .results-text {
+            font-family: 'Fira Code', monospace;
+            padding: 10px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            white-space: pre;
+            overflow-x: auto;
+            display: block;
+            width: max-content;
+            min-width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) transparent;
+        }
+
+        .results-text::-webkit-scrollbar {
+            height: 6px;
+        }
+        .results-text::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+        }
+
+        .scroll-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 5px;
+            z-index: 10;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .scroll-btn:hover {
+            opacity: 1;
+        }
+
+        #loading {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sandbox Logs 🐾</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="status.html">Status</a>
+        </div>
+    </header>
+
+    <div id="loading">Reading the slime scrolls...</div>
+    
+    <div class="logs-grid" id="logs-grid" style="display:none;">
+        <!-- Heartbeat Column -->
+        <div class="log-column">
+            <div class="column-title">Heartbeat Registry</div>
+            <div class="log-container">
+                <div id="heartbeat-list"></div>
+            </div>
+        </div>
+
+        <!-- Execution Column -->
+        <div class="log-column">
+            <div class="column-title">Execution Results</div>
+            <div class="log-container">
+                <div id="execution-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchData(url) {
+            const res = await fetch(url + '?v=' + new Date().getTime());
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return await res.json();
+        }
+
+        function scrollRight(el) {
+            el.scrollBy({ left: 200, behavior: 'smooth' });
+        }
+
+        async function loadAllLogs() {
+            const loadingEl = document.getElementById('loading');
+            const gridEl = document.getElementById('logs-grid');
+            const hbList = document.getElementById('heartbeat-list');
+            const exList = document.getElementById('execution-list');
+
+            try {
+                const [hbData, exData] = await Promise.all([
+                    fetchData('logs.json'),
+                    fetchData('execution_logs.json')
+                ]);
+
+                loadingEl.style.display = 'none';
+                gridEl.style.display = 'grid';
+
+                hbList.innerHTML = '';
+                if (!Array.isArray(hbData) || hbData.length === 0) {
+                    hbList.innerHTML = '<div style="text-align:center; color:var(--text-dim); padding: 20px;">No heartbeat logs yet. 🐾</div>';
+                } else {
+                    hbData.forEach(entry => {
+                        const div = document.createElement('div');
+                        div.className = 'log-entry';
+                        div.innerHTML = `
+                            <div class="log-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span class="timestamp">${entry.timestamp}</span>
+                                <span class="summary">${entry.summary}</span>
+                                <span class="chevron">▼</span>
+                            </div>
+                            <div class="log-details">
+                                <div class="detail-section">
+                                    <span class="detail-label">What it does</span>
+                                    <div class="detail-text">${entry.details?.what || 'N/A'}</div>
+                                </div>
+                                <div class="detail-section">
+                                    <span class="detail-label">How it works</span>
+                                    <div class="detail-text">${entry.details?.how || 'N/A'}</div>
+                                </div>
+                                <div class="detail-section">
+                                    <span class="detail-label">How to use it</span>
+                                    <div class="detail-text">${entry.details?.use || 'N/A'}</div>
+                                </div>
+                            </div>
+                        `;
+                        hbList.appendChild(div);
+                    });
+                }
+
+                exList.innerHTML = '';
+                if (!Array.isArray(exData) || exData.length === 0) {
+                    exList.innerHTML = '<div style="text-align:center; color:var(--text-dim); padding: 20px;">No execution results yet. 🐾</div>';
+                } else {
+                    exData.forEach((entry, idx) => {
+                        const div = document.createElement('div');
+                        div.className = 'log-entry';
+                        const textId = `results-text-${idx}`;
+                        div.innerHTML = `
+                            <div class="log-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span class="timestamp">${entry.timestamp}</span>
+                                <span class="summary">${entry.script}</span>
+                                <span class="chevron">▼</span>
+                            </div>
+                            <div class="log-details">
+                                <div class="detail-section">
+                                    <span class="detail-label">Scan Results</span>
+                                    <div class="results-wrapper">
+                                        <div id="${textId}" class="results-text">${entry.results}</div>
+                                        <button class="scroll-btn" onclick="scrollRight(document.getElementById('${textId}'))">→</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        exList.appendChild(div);
+                    });
+                }
+
+            } catch (e) {
+                console.error('Tabby Slime Error:', e);
+                loadingEl.innerText = 'Error: ' + e.message + '. The slimes might have eaten the connection! 🐾';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadAllLogs);
+        loadAllLogs();
+    </script>
+</body>
+</html>

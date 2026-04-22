@@ -1,0 +1,290 @@
+[
+  {
+    "timestamp": "2026-04-20 19:39 PST",
+    "summary": "Created process snapshot utility",
+    "details": {
+      "what": "Utility to capture and summarize the top CPU-consuming processes.",
+      "how": "Python script using `ps aux` and sorting the output by CPU percentage.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/process_snapshot.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-20 20:09 PST",
+    "summary": "Created environment limit auditor",
+    "details": {
+      "what": "Utility to document environment variables and system resource limits.",
+      "how": "Python script using `os.environ` and `ulimit -a` via subprocess.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/env_limit_auditor.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-20 20:39 PST",
+    "summary": "Created storage audit utility",
+    "details": {
+      "what": "Utility to document mounted filesystems and swap usage.",
+      "how": "Python script using `df -h` and `free -h` via subprocess.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/storage_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-20 21:09 PST",
+    "summary": "Created network port audit utility",
+    "details": {
+      "what": "Utility to identify and list all listening network ports.",
+      "how": "Python script using `ss -tulpn` and `ip addr` via subprocess.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/net_port_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-20 22:09 PST",
+    "summary": "Created system health check utility",
+    "details": {
+      "what": "Utility to monitor basic uptime and system load.",
+      "how": "Python script reading `/proc/uptime` and using `os.getloadavg()`.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/sys_health_check.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-20 22:39 PST",
+    "summary": "Created package auditor",
+    "details": {
+      "what": "Utility to list all installed system and Python packages.",
+      "how": "Python script attempting to call `dpkg`, `rpm`, and `pip`.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/package_auditor.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-20 23:09 PST",
+    "summary": "Created hardware audit utility",
+    "details": {
+      "what": "Utility to capture detailed CPU and memory specs.",
+      "how": "Python script reading `/proc/cpuinfo` and `/proc/meminfo`.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/hw_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-20 23:39 PST",
+    "summary": "Created user environment audit utility",
+    "details": {
+      "what": "Utility to document user identity and shell configuration.",
+      "how": "Python script using `id` command and `/etc/passwd`.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/user_env_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 00:09 PST",
+    "summary": "Created shell history snapshot utility",
+    "details": {
+      "what": "Utility to capture recent terminal activity from shell history files.",
+      "how": "Python script searching for .bash_history, .zsh_history, and fish_history.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/shell_history_snapshot.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 00:39 PST",
+    "summary": "Created workspace knowledge graph generator",
+    "details": {
+      "what": "Utility to map file dependencies across the workspace as a DOT graph.",
+      "how": "Python script scanning files for mentions of other files in the workspace.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/workspace_graph.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 01:09 PST",
+    "summary": "Created system log error auditor",
+    "details": {
+      "what": "Utility to scan common system logs for critical errors.",
+      "how": "Python script scanning /var/log/syslog, /var/log/messages, etc., for keywords.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/sys_log_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 01:39 PST",
+    "summary": "Created entropy analyzer utility",
+    "details": {
+      "what": "Utility to detect high-entropy (potentially encrypted or compressed) files.",
+      "how": "Python script calculating Shannon entropy of the first 1MB of files.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/entropy_analyzer.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 03:09 PST",
+    "summary": "Created website auditor",
+    "details": {
+      "what": "Utility to detect broken internal links in the workspace website directory.",
+      "how": "Python script scanning HTML/JS/CSS files for relative paths and verifying their existence.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/website_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 04:09 PST",
+    "summary": "Created tooling indexer",
+    "details": {
+      "what": "Utility to categorize and index all sandbox tools for better discoverability.",
+      "how": "Python script parsing `details.json` and grouping entries by keyword-based categories.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/tooling_indexer.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 04:39 PST",
+    "summary": "Created permission auditor",
+    "details": {
+      "what": "Utility to identify insecure file permissions and potential security risks.",
+      "how": "Python script auditing world-writability, SUID/SGID bits, and sensitive file exposure.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/permission_auditor.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 05:09 PST",
+    "summary": "Created network connectivity auditor",
+    "details": {
+      "what": "Utility to map active connections and DNS resolver status.",
+      "how": "Python script using `ss -tunp` and `resolvectl status` via subprocess.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/net_conn_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 05:39 PST",
+    "summary": "Created scheduled tasks auditor",
+    "details": {
+      "what": "Utility to document cron jobs and systemd timers.",
+      "how": "Python script using `crontab -l` and `systemctl list-timers` via subprocess.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/sched_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 06:09 PST",
+    "summary": "Created resource handle auditor",
+    "details": {
+      "what": "Utility to document open files and socket statistics.",
+      "how": "Python script using `lsof` and `ss -s` via subprocess.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/resource_handle_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 06:39 PST",
+    "summary": "Created privilege audit utility",
+    "details": {
+      "what": "Utility to document user group membership and sudo capabilities.",
+      "how": "Python script using `id` command and `sudo -l` via subprocess.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/privilege_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 07:39 PST",
+    "summary": "Created File Integrity Monitor",
+    "details": {
+      "what": "Utility to track unauthorized changes to files via SHA-256 hashing.",
+      "how": "Python script that generates a JSON baseline of file hashes and compares current state against it.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/fim.py baseline` to create a baseline or `python3 /home/q/.openclaw/workspace/sandbox/fim.py check` to verify integrity."
+    }
+  },
+  {
+    "timestamp": "2026-04-21 09:09 PST",
+    "summary": "Created Health Dashboard",
+    "details": {
+      "what": "Utility to aggregate multiple auditing tools into a single system state report.",
+      "how": "Python script that executes several existing auditing scripts and compiles their output.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/health_dashboard.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 09:39 PST",
+    "summary": "Created resource leak detector",
+    "details": {
+      "what": "Utility to identify open file/socket handles that are opened but not closed over a time interval.",
+      "how": "Python script taking snapshots of lsof output and calculating the set difference.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/resource_leak_detector.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 10:09 PST",
+    "summary": "Created Zombie Process Hunter",
+    "details": {
+      "what": "Utility to detect and report on defunct (zombie) processes.",
+      "how": "Python script analyzing process states via `ps`.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/zombie_hunter.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 10:39 PST",
+    "summary": "Created Secret Scanner",
+    "details": {
+      "what": "Utility to scan the workspace for hardcoded secrets and API keys.",
+      "how": "Python script using regex patterns to identify common secret formats.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/secret_scanner.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 11:09 PST",
+    "summary": "Created Disk Usage Analyzer",
+    "details": {
+      "what": "Utility to provide a detailed breakdown of sandbox storage consumption.",
+      "how": "Python script iterating through the sandbox directory and calculating file sizes.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/disk_usage_analyzer.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 11:39 PST",
+    "summary": "Created Security Posture Summary",
+    "details": {
+      "what": "Laggregates multiple security auditing tools into a single posture report.",
+      "how": "Python script that executes the secret scanner, permission auditor, network port auditor, and zombie hunter.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/security_posture.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 12:09 PST",
+    "summary": "Created Process Tree Auditor",
+    "details": {
+      "what": "Utility to detect unusual process hierarchies and execution from risk-prone temporary paths.",
+      "how": "Python script analyzing `ps` output for parent-child relationships and binary paths.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/process_tree_audit.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 12:39 PST",
+    "summary": "Created Sandbox Situation Report",
+    "details": {
+      "what": "Utility to synthesize high-level summaries from various audit reports into a single SITREP.",
+      "how": "Python script that extracts key findings from existing report files.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/sandbox_sitrep.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 13:09 PST",
+    "summary": "Created Report Grepper",
+    "details": {
+      "what": "Utility to search for keywords across all sandbox reports.",
+      "how": "Python script iterating through .txt and .report.txt files and grepping for a keyword.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/report_grepper.py <keyword>`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 13:39 PST",
+    "summary": "Created Cron Job Validator",
+    "details": {
+      "what": "Utility to verify that scheduled tasks point to valid executables.",
+      "how": "Python script parsing crontab entries and checking for file existence or PATH resolution.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/cron_validator.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 14:39 PST",
+    "summary": "Created Sandbox Performance Profiler",
+    "details": {
+      "what": "Utility to measure the execution time and memory usage of sandbox tools.",
+      "how": "Python script using `subprocess` and `resource.getrusage` to profile child processes.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/perf_profiler.py`"
+    }
+  },
+  {
+    "timestamp": "2026-04-21 16:10 PST",
+    "summary": "Created Resource Trend Analyzer",
+    "details": {
+      "what": "Utility to analyze CPU/Mem/Disk usage patterns over time from sys_resources.csv.",
+      "how": "Python script reading CSV logs and calculating averages, peaks, and minimums.",
+      "use": "Run `python3 /home/q/.openclaw/workspace/sandbox/resource_trend_analyzer.py`"
+    }
+  }
+]

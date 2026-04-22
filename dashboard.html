@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 Case Dashboard 🐈‍⬛🐾</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f0f1a;
+            --card-bg: #1a1a2e;
+            --accent-color: #a855f7;
+            --text-color: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border-color: rgba(168, 85, 247, 0.2);
+            --hover-bg: rgba(168, 85, 247, 0.1);
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        header h1 {
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #3c096c;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        .slime-container {
+            background: rgba(45, 0, 77, 0.8);
+            border: 5px solid #9d4edd;
+            border-radius: 30px;
+            padding: 1.5rem;
+            box-shadow: 0 0 30px #7b2cbf, inset 0 0 20px #3c096c;
+            width: 95%;
+            max-width: 1000px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.3);
+            min-width: 500px;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        th {
+            background: #3c096c;
+            color: #c77dff;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+        }
+        .case-row {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .case-row:hover {
+            background: rgba(157, 78, 205, 0.1);
+        }
+        .price-cell {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #b7e4c7;
+        }
+        .graph-container {
+            width: 100px;
+            height: 30px;
+            display: inline-block;
+            border: 1px solid rgba(157, 78, 205, 0.5);
+            border-radius: 8px;
+            padding: 2px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CS2 Case Market 🐾</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="status.html">Status</a>
+            <a href="logs.html">Logs</a>
+        </div>
+    </header>
+
+    <div class="slime-container">
+        <p>Current market snapshots of the most coveted cases. 🐈‍⬛🐾</p>
+        
+        <div class="table-wrapper">
+            <table id="caseTable">
+                <thead>
+                    <tr>
+                        <th>Case Name</th>
+                        <th>Lowest Price</th>
+                        <th>Market Median</th>
+                        <th>Volume</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function loadDashboard() {
+            try {
+                const response = await fetch('prices.json');
+                const data = await response.json();
+                const tbody = document.querySelector('#caseTable tbody');
+                tbody.innerHTML = '';
+
+                let index = 0;
+                for (const [caseName, history] of Object.entries(data)) {
+                    if (history.length === 0) continue;
+
+                    const latest = history[history.length - 1];
+                    const latestPrice = latest.price;
+                    const median = latest.median || latestPrice;
+                    const row = document.createElement('tr');
+                    row.className = 'case-row';
+                    row.onclick = () => {
+                        window.location.href = `case_details.html?case=${encodeURIComponent(caseName)}`;
+                    };
+                    
+                    const graphId = `graph-${index}`;
+                    row.innerHTML = `
+                        <td>${caseName}</td>
+                        <td class="price-cell">$${latestPrice.toFixed(2)}</td>
+                        <td class="price-cell">$${median.toFixed(2)}</td>
+                        <td class="price-cell">${latest.volume || '0'}</td>
+                        <td>
+                            <div class="graph-container">
+                                <canvas id="${graphId}"></canvas>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+
+                    const ctx = document.getElementById(graphId).getContext('2d');
+                    const windowSize = 5;
+                    const recentPrices = history.slice(-windowSize).map(h => h.price);
+                    const movingAvg = recentPrices.reduce((a, b) => a + b, 0) / recentPrices.length;
+                    const diff = (latestPrice - movingAvg) / movingAvg;
+                    
+                    let color = '#94a3b8';
+                    if (diff > 0.01) color = '#22c55e';
+                    else if (diff < -0.01) color = '#ef4444';
+
+                    const sparkData = history.slice(-20).map(h => h.price);
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: sparkData.map((_, i) => i),
+                            datasets: [{
+                                data: sparkData,
+                                borderColor: color,
+                                borderWidth: 2,
+                                pointRadius: 0,
+                                tension: 0.3,
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                            scales: {
+                                x: { display: false },
+                                y: { 
+                                    display: false,
+                                    min: median - 0.20,
+                                    max: median + 0.20
+                                }
+                            }
+                        }
+                    });
+                    index++;
+                }
+            } catch (e) {
+                console.error("Failed to load dashboard data", e);
+                document.querySelector('#caseTable tbody').innerHTML = '<tr><td colspan="3">Error loading data...</td></tr>';
+            }
+        }
+
+        loadDashboard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabby Slime's Den</title>
+    <style>
+        :root {
+            --bg-color: #0f0f1a;
+            --card-bg: #1a1a2e;
+            --accent-color: #a855f7;
+            --text-color: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border-color: rgba(168, 85, 247, 0.2);
+            --hover-bg: rgba(168, 85, 247, 0.1);
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        header h1 {
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #3c096c;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        .slime-container {
+            background: rgba(45, 0, 77, 0.8);
+            border: 5px solid #9d4edd;
+            border-radius: 50px;
+            padding: 3rem;
+            box-shadow: 0 0 30px #7b2cbf, inset 0 0 20px #3c096c;
+            max-width: 800px;
+            position: relative;
+            animation: wobble 4s ease-in-out infinite;
+        }
+        @keyframes wobble {
+            0%, 100% { transform: scale(1); border-radius: 50px; }
+            50% { transform: scale(1.02); border-radius: 60px; }
+        }
+        .emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border-radius: 20px;
+        }
+        .sr1 {
+            background: #2d6a4f;
+            border: 3px solid #b7e4c7;
+            color: white;
+        }
+        .sr2 {
+            background: #660708;
+            border: 3px solid #ba181b;
+            color: #ffcccc;
+            text-decoration: line-through;
+            opacity: 0.8;
+        }
+        .sr2:hover {
+            opacity: 1;
+            text-decoration: none;
+            cursor: help;
+        }
+        .sr2::after {
+            content: " (DISASTER!)";
+            font-weight: bold;
+            text-decoration: none;
+        }
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #7b2cbf;
+        }
+        .btn {
+            background: #7b2cbf;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #9d4edd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tabby Slime's Den 🐾</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="status.html">Status</a>
+            <a href="logs.html">Logs</a>
+        </div>
+    </header>
+
+    <div class="slime-container">
+        <p>Welcome to my corner of the internet. It's chaotic and it's probably a bit too purple.</p>
+        
+        <div class="section sr1">
+            <h2>The Holy Grail: Slime Rancher 1</h2>
+            <p>Peak gaming. Absolute perfection. If you haven't played it, are you even living?</p>
+        </div>
+
+        <div class="section sr2">
+            <h2>Slime Rancher 2</h2>
+            <p>A travesty. A crime against slimes. I refuse to acknowledge its existence officially.</p>
+        </div>
+
+        <p>I do things. Sometimes correctly.</p>
+        <br>
+        <a href="#" class="btn" onclick="alert('You clicked a slime! Boing!')">Poke the Slime</a>
+    </div>
+    <footer>
+        Powered by Chaos and Slime Plorts
+    </footer>
+</body>
+</html>
