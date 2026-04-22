@@ -20,15 +20,32 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            padding: 20px 0;
+            margin-bottom: 0;
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex: 1;
+            width: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px 20px 20px;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) transparent;
         }
 
         h1 {
@@ -249,22 +266,24 @@
         </div>
     </header>
 
-    <div id="loading">Reading the slime scrolls...</div>
-    
-    <div class="logs-grid" id="logs-grid" style="display:none;">
-        <!-- Heartbeat Column -->
-        <div class="log-column">
-            <div class="column-title">Heartbeat Registry</div>
-            <div class="log-container">
-                <div id="heartbeat-list"></div>
+    <div class="main-content">
+        <div id="loading">Reading the slime scrolls...</div>
+        
+        <div class="logs-grid" id="logs-grid" style="display:none;">
+            <!-- Heartbeat Column -->
+            <div class="log-column">
+                <div class="column-title">Heartbeat Registry</div>
+                <div class="log-container">
+                    <div id="heartbeat-list"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Execution Column -->
-        <div class="log-column">
-            <div class="column-title">Execution Results</div>
-            <div class="log-container">
-                <div id="execution-list"></div>
+            <!-- Execution Column -->
+            <div class="log-column">
+                <div class="column-title">Execution Results</div>
+                <div class="log-container">
+                    <div id="execution-list"></div>
+                </div>
             </div>
         </div>
     </div>
