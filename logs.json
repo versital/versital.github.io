@@ -1,6 +1,6 @@
 [
   {
-    "timestamp": "2026-04-20 19:39 UTC-7:00",
+    "timestamp": "2026-04-20 19:39",
     "summary": "Created process snapshot utility",
     "details": {
       "what": "Utility to capture and summarize the top CPU-consuming processes.",
@@ -9,7 +9,7 @@
     }
   },
   {
-    "timestamp": "2026-04-20 20:09 UTC-7:00",
+    "timestamp": "2026-04-20 20:09",
     "summary": "Created environment limit auditor",
     "details": {
       "what": "Utility to document environment variables and system resource limits.",
@@ -18,7 +18,7 @@
     }
   },
   {
-    "timestamp": "2026-04-20 20:39 UTC-7:00",
+    "timestamp": "2026-04-20 20:39",
     "summary": "Created storage audit utility",
     "details": {
       "what": "Utility to document mounted filesystems and swap usage.",
@@ -27,7 +27,7 @@
     }
   },
   {
-    "timestamp": "2026-04-20 21:09 UTC-7:00",
+    "timestamp": "2026-04-20 21:09",
     "summary": "Created network port audit utility",
     "details": {
       "what": "Utility to identify and list all listening network ports.",
@@ -36,7 +36,7 @@
     }
   },
   {
-    "timestamp": "2026-04-20 22:09 UTC-7:00",
+    "timestamp": "2026-04-20 22:09",
     "summary": "Created system health check utility",
     "details": {
       "what": "Utility to monitor basic uptime and system load.",
@@ -45,7 +45,7 @@
     }
   },
   {
-    "timestamp": "2026-04-20 22:39 UTC-7:00",
+    "timestamp": "2026-04-20 22:39",
     "summary": "Created package auditor",
     "details": {
       "what": "Utility to list all installed system and Python packages.",
@@ -54,7 +54,7 @@
     }
   },
   {
-    "timestamp": "2026-04-20 23:09 UTC-7:00",
+    "timestamp": "2026-04-20 23:09",
     "summary": "Created hardware audit utility",
     "details": {
       "what": "Utility to capture detailed CPU and memory specs.",
@@ -63,7 +63,7 @@
     }
   },
   {
-    "timestamp": "2026-04-20 23:39 UTC-7:00",
+    "timestamp": "2026-04-20 23:39",
     "summary": "Created user environment audit utility",
     "details": {
       "what": "Utility to document user identity and shell configuration.",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 00:09 UTC-7:00",
+    "timestamp": "2026-04-21 00:09",
     "summary": "Created shell history snapshot utility",
     "details": {
       "what": "Utility to capture recent terminal activity from shell history files.",
@@ -81,7 +81,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 00:39 UTC-7:00",
+    "timestamp": "2026-04-21 00:39",
     "summary": "Created workspace knowledge graph generator",
     "details": {
       "what": "Utility to map file dependencies across the workspace as a DOT graph.",
@@ -90,7 +90,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 01:09 UTC-7:00",
+    "timestamp": "2026-04-21 01:09",
     "summary": "Created system log error auditor",
     "details": {
       "what": "Utility to scan common system logs for critical errors.",
@@ -99,7 +99,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 01:39 UTC-7:00",
+    "timestamp": "2026-04-21 01:39",
     "summary": "Created entropy analyzer utility",
     "details": {
       "what": "Utility to detect high-entropy (potentially encrypted or compressed) files.",
@@ -108,7 +108,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 03:09 UTC-7:00",
+    "timestamp": "2026-04-21 03:09",
     "summary": "Created website auditor",
     "details": {
       "what": "Utility to detect broken internal links in the workspace website directory.",
@@ -117,7 +117,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 04:09 UTC-7:00",
+    "timestamp": "2026-04-21 04:09",
     "summary": "Created tooling indexer",
     "details": {
       "what": "Utility to categorize and index all sandbox tools for better discoverability.",
@@ -126,7 +126,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 04:39 UTC-7:00",
+    "timestamp": "2026-04-21 04:39",
     "summary": "Created permission auditor",
     "details": {
       "what": "Utility to identify insecure file permissions and potential security risks.",
@@ -135,7 +135,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 05:09 UTC-7:00",
+    "timestamp": "2026-04-21 05:09",
     "summary": "Created network connectivity auditor",
     "details": {
       "what": "Utility to map active connections and DNS resolver status.",
@@ -144,7 +144,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 05:39 UTC-7:00",
+    "timestamp": "2026-04-21 05:39",
     "summary": "Created scheduled tasks auditor",
     "details": {
       "what": "Utility to document cron jobs and systemd timers.",
@@ -153,7 +153,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 06:09 UTC-7:00",
+    "timestamp": "2026-04-21 06:09",
     "summary": "Created resource handle auditor",
     "details": {
       "what": "Utility to document open files and socket statistics.",
@@ -162,7 +162,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 06:39 UTC-7:00",
+    "timestamp": "2026-04-21 06:39",
     "summary": "Created privilege audit utility",
     "details": {
       "what": "Utility to document user group membership and sudo capabilities.",
@@ -171,7 +171,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 07:39 UTC-7:00",
+    "timestamp": "2026-04-21 07:39",
     "summary": "Created File Integrity Monitor",
     "details": {
       "what": "Utility to track unauthorized changes to files via SHA-256 hashing.",
@@ -180,7 +180,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 09:09 UTC-7:00",
+    "timestamp": "2026-04-21 09:09",
     "summary": "Created Health Dashboard",
     "details": {
       "what": "Utility to aggregate multiple auditing tools into a single system state report.",
@@ -189,7 +189,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 09:39 UTC-7:00",
+    "timestamp": "2026-04-21 09:39",
     "summary": "Created resource leak detector",
     "details": {
       "what": "Utility to identify open file/socket handles that are opened but not closed over a time interval.",
@@ -198,7 +198,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 10:09 UTC-7:00",
+    "timestamp": "2026-04-21 10:09",
     "summary": "Created Zombie Process Hunter",
     "details": {
       "what": "Utility to detect and report on defunct (zombie) processes.",
@@ -207,7 +207,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 10:39 UTC-7:00",
+    "timestamp": "2026-04-21 10:39",
     "summary": "Created Secret Scanner",
     "details": {
       "what": "Utility to scan the workspace for hardcoded secrets and API keys.",
@@ -216,7 +216,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 11:09 UTC-7:00",
+    "timestamp": "2026-04-21 11:09",
     "summary": "Created Disk Usage Analyzer",
     "details": {
       "what": "Utility to provide a detailed breakdown of sandbox storage consumption.",
@@ -225,7 +225,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 11:39 UTC-7:00",
+    "timestamp": "2026-04-21 11:39",
     "summary": "Created Security Posture Summary",
     "details": {
       "what": "Laggregates multiple security auditing tools into a single posture report.",
@@ -234,7 +234,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 12:09 UTC-7:00",
+    "timestamp": "2026-04-21 12:09",
     "summary": "Created Process Tree Auditor",
     "details": {
       "what": "Utility to detect unusual process hierarchies and execution from risk-prone temporary paths.",
@@ -243,7 +243,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 12:39 UTC-7:00",
+    "timestamp": "2026-04-21 12:39",
     "summary": "Created Sandbox Situation Report",
     "details": {
       "what": "Utility to synthesize high-level summaries from various audit reports into a single SITREP.",
@@ -252,7 +252,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 13:09 UTC-7:00",
+    "timestamp": "2026-04-21 13:09",
     "summary": "Created Report Grepper",
     "details": {
       "what": "Utility to search for keywords across all sandbox reports.",
@@ -261,7 +261,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 13:39 UTC-7:00",
+    "timestamp": "2026-04-21 13:39",
     "summary": "Created Cron Job Validator",
     "details": {
       "what": "Utility to verify that scheduled tasks point to valid executables.",
@@ -270,7 +270,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 14:39 UTC-7:00",
+    "timestamp": "2026-04-21 14:39",
     "summary": "Created Sandbox Performance Profiler",
     "details": {
       "what": "Utility to measure the execution time and memory usage of sandbox tools.",
@@ -279,7 +279,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 16:10 UTC-7:00",
+    "timestamp": "2026-04-21 16:10",
     "summary": "Created Resource Trend Analyzer",
     "details": {
       "what": "Utility to analyze CPU/Mem/Disk usage patterns over time from sys_resources.csv.",
@@ -288,7 +288,7 @@
     }
   },
   {
-    "timestamp": "2026-04-21 16:39 UTC-7:00",
+    "timestamp": "2026-04-21 16:39",
     "summary": "Created Finding Analyzer",
     "details": {
       "what": "Utility to quantify the distribution of risk and status keywords across all sandbox reports.",
