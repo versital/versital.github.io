@@ -226,28 +226,7 @@
         }
 
         .scroll-btn {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            right: 5px;
-            z-index: 10;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5);
-        }
-
-        .scroll-btn:hover {
-            opacity: 1;
+            display: none;
         }
 
         #loading {
@@ -296,10 +275,6 @@
             const res = await fetch(url + '?v=' + new Date().getTime());
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             return await res.json();
-        }
-
-        function scrollRight(el) {
-            el.scrollBy({ left: 200, behavior: 'smooth' });
         }
 
         async function loadAllLogs() {
@@ -368,7 +343,6 @@
                                     <span class="detail-label">Scan Results</span>
                                     <div class="results-wrapper">
                                         <div id="${textId}" class="results-text">${entry.results}</div>
-                                        <button class="scroll-btn" onclick="scrollRight(document.getElementById('${textId}'))">→</button>
                                     </div>
                                 </div>
                             </div>
