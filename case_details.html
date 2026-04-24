@@ -17,6 +17,7 @@
             --bearish: #ef4444;
             --stagnant: #94a3b8;
             --border-color: rgba(168, 85, 247, 0.2);
+            --deep-purple: #3c096c;
         }
 
         body {
@@ -28,6 +29,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 20%);
+        }
+        .decoration {
+            position: fixed;
+            z-index: -1;
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
         }
 
         header {
@@ -40,7 +56,7 @@
             color: var(--accent-color);
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px #3c096c;
+            text-shadow: 3px 3px var(--deep-purple);
         }
 
         .nav-links {
@@ -64,6 +80,17 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            animation: wobble 4s ease-in-out infinite;
+            background: rgba(45, 0, 77, 0.4);
+            border-radius: 40px;
+            padding: 30px;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 25px var(--deep-purple), inset 0 0 15px var(--deep-purple);
+            box-sizing: border-box;
+        }
+        @keyframes wobble {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
         }
 
         .stats-grid {
@@ -80,6 +107,11 @@
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             position: relative;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
         }
 
         .stat-label {
@@ -177,6 +209,10 @@
     </style>
 </head>
 <body>
+    <div class="decoration" style="top: 10%; left: 5%; font-size: 3rem;">🐈‍⬛</div>
+    <div class="decoration" style="top: 20%; right: 10%; font-size: 2rem; animation-delay: 1s;">🐾</div>
+    <div class="decoration" style="bottom: 15%; left: 15%; font-size: 2.5rem; animation-delay: 2s;">🟣</div>
+    <div class="decoration" style="bottom: 10%; right: 5%; font-size: 1.5rem; animation-delay: 3s;">✨</div>
 
     <header>
         <h1 id="case-title">Case Details 🐾</h1>
@@ -185,6 +221,7 @@
             <a href="dashboard.html">Dashboard</a>
             <a href="status.html">Status</a>
             <a href="logs.html">Logs</a>
+            <a href="heartbeat/index.html">Heartbeats</a>
         </div>
     </header>
 

@@ -13,6 +13,7 @@
             --text-dim: #94a3b8;
             --border-color: rgba(168, 85, 247, 0.2);
             --hover-bg: rgba(168, 85, 247, 0.1);
+            --deep-purple: #3c096c;
         }
 
         body {
@@ -26,6 +27,21 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 20%);
+        }
+        .decoration {
+            position: fixed;
+            z-index: -1;
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
         }
 
         header {
@@ -35,23 +51,11 @@
             flex-shrink: 0;
         }
 
-        .main-content {
-            flex: 1;
-            width: 100%;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 20px 20px 20px;
-            box-sizing: border-box;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent-color) transparent;
-        }
-
-        h1 {
+        header h1 {
             color: var(--accent-color);
             font-size: 2rem;
             margin-bottom: 10px;
+            text-shadow: 3px 3px var(--deep-purple);
         }
 
         .nav-links {
@@ -69,6 +73,19 @@
             color: var(--accent-color);
         }
 
+        .main-content {
+            flex: 1;
+            width: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px 20px 20px;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) transparent;
+        }
+
         .logs-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -76,6 +93,16 @@
             width: 100%;
             max-width: 1400px;
             box-sizing: border-box;
+            animation: wobble 4s ease-in-out infinite;
+            background: rgba(45, 0, 77, 0.4);
+            border-radius: 40px;
+            padding: 30px;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 25px var(--deep-purple), inset 0 0 15px var(--deep-purple);
+        }
+        @keyframes wobble {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
         }
 
         @media (max-width: 1000px) {
@@ -266,6 +293,10 @@
     </style>
 </head>
 <body>
+    <div class="decoration" style="top: 10%; left: 5%; font-size: 3rem;">🐈‍⬛</div>
+    <div class="decoration" style="top: 20%; right: 10%; font-size: 2rem; animation-delay: 1s;">🐾</div>
+    <div class="decoration" style="bottom: 15%; left: 15%; font-size: 2.5rem; animation-delay: 2s;">🟣</div>
+    <div class="decoration" style="bottom: 10%; right: 5%; font-size: 1.5rem; animation-delay: 3s;">✨</div>
 
     <header>
         <h1>Sandbox Logs 🐾</h1>
