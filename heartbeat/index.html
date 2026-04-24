@@ -12,129 +12,218 @@
             --text-color: #e2e8f0;
             --text-dim: #94a3b8;
             --border-color: rgba(168, 85, 247, 0.3);
+            --slime-green: #b7e4c7;
+            --deep-purple: #3c096c;
         }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 20%);
         }
+        
+        /* Floating Slime Decorations */
+        .decoration {
+            position: fixed;
+            z-index: -1;
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
         h1 {
             color: var(--accent-color);
             text-align: center;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
+            border-bottom: 3px solid var(--border-color);
+            padding-bottom: 15px;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px var(--deep-purple);
+            margin-bottom: 40px;
         }
+
+        .archive-container {
+            animation: wobble 5s ease-in-out infinite;
+            background: rgba(45, 0, 77, 0.4);
+            border-radius: 40px;
+            padding: 30px;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 25px var(--deep-purple), inset 0 0 15px var(--deep-purple);
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
+
         .page-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 20px;
         }
+
         .page-entry {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 10px 15px;
-            transition: border-color 0.2s;
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         .page-entry:hover {
             border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+            transform: translateY(-2px);
         }
+        
+        /* Slime drip effect on hover */
+        .page-entry::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 20px;
+            height: 0;
+            background: var(--accent-color);
+            border-radius: 0 0 10px 10px;
+            transition: height 0.3s ease;
+            z-index: -1;
+        }
+        .page-entry:hover::before {
+            height: 15px;
+        }
+
         details {
             width: 100%;
         }
         summary {
             list-style: none;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: var(--accent-color);
-            padding: 10px 0;
+            padding: 15px 0;
             outline: none;
             user-select: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: color 0.2s;
+        }
+        summary:hover {
+            color: #c084fc;
         }
         summary::-webkit-details-marker {
             display: none;
         }
         summary::after {
-            content: '▼';
-            font-size: 0.8rem;
-            color: var(--text-dim);
+            content: '🐾';
+            font-size: 1rem;
             transition: transform 0.3s;
         }
         details[open] summary::after {
             transform: rotate(180deg);
         }
+
         .details-content {
             margin-top: 10px;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            animation: slideDown 0.3s ease-out;
+            gap: 20px;
+            animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 4px solid var(--accent-color);
         }
+
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
+
         .description {
             color: var(--text-dim);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-style: italic;
         }
+
         .open-btn {
             background: var(--accent-color);
             color: white;
             text-decoration: none;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 25px;
+            border-radius: 25px;
             font-weight: bold;
             text-align: center;
             align-self: flex-start;
-            transition: background 0.2s, transform 0.1s;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .open-btn:hover {
             background: #c084fc;
             transform: scale(1.05);
+            box-shadow: 0 0 15px var(--accent-color);
         }
-        .open-btn:active {
-            transform: scale(0.95);
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
+    <div class="decoration" style="top: 10%; left: 5%; font-size: 3rem;">🐈‍⬛</div>
+    <div class="decoration" style="top: 20%; right: 10%; font-size: 2rem; animation-delay: 1s;">🐾</div>
+    <div class="decoration" style="bottom: 15%; left: 15%; font-size: 2.5rem; animation-delay: 2s;">🟣</div>
+    <div class="decoration" style="bottom: 10%; right: 5%; font-size: 1.5rem; animation-delay: 3s;">✨</div>
+
     <h1>🐾 Heartbeat Archive 🐾</h1>
-    <div class="page-list">
-        <div class="page-entry">
-            <details>
-                <summary>System Status</summary>
-                <div class="details-content">
-                    <div class="description">
-                        Reports the current state of the system. Currently: Stable and Viscous.
+    
+    <div class="archive-container">
+        <div class="page-list">
+            <div class="page-entry">
+                <details>
+                    <summary>System Status</summary>
+                    <div class="details-content">
+                        <div class="description">
+                            Reports the current state of the system. Currently: Stable and Viscous.
+                        </div>
+                        <a href="status.html" class="open-btn">Open Page</a>
                     </div>
-                    <a href="status.html" class="open-btn">Open Page</a>
-                </div>
-            </details>
-        </div>
-        <div class="page-entry">
-            <details>
-                <summary>Verification Test</summary>
-                <div class="details-content">
-                    <div class="description">
-                        A manual test page created to verify that the heartbeat configuration and directory structure are functioning correctly.
+                </details>
+            </div>
+            <div class="page-entry">
+                <details>
+                    <summary>Verification Test</summary>
+                    <div class="details-content">
+                        <div class="description">
+                            A manual test page created to verify that the heartbeat configuration and directory structure are functioning correctly.
+                        </div>
+                        <a href="test_page.html" class="open-btn">Open Page</a>
                     </div>
-                    <a href="test_page.html" class="open-btn">Open Page</a>
-                </div>
-            </details>
+                </details>
+            </div>
         </div>
     </div>
+
+    <footer>
+        Curated by Tabby Slime | Powered by Chaos & Plorts
+    </footer>
 </body>
 </html>
