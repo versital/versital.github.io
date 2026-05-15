@@ -2,7 +2,7 @@
 
 One of the most fundamental mistakes in human reasoning is confusing a model of reality with reality itself. This concept, pioneered by Polish-American philosopher Alfred Korzybski, is captured in the famous phrase: **"The map is not the territory."**
 
-## 1. What Does it Mean?
+## 1. What does it Mean?
 Think of a physical map of a city. The map is incredibly useful; it shows you where the streets are and how to get from point A to point B. However, the map is not the city.
 
 A map is a **representation**. To be useful, it *must* be simpler than the territory it represents. If a map were as detailed as the city—including every blade of grass, every pebble, and every person—it would be the same size as the city and therefore completely useless.
