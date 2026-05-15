@@ -4055,6 +4055,30 @@
       "price": 0.0,
       "median": 0.97,
       "volume": "40168"
+    },
+    {
+      "timestamp": "2026-05-15T13:00:02.775075",
+      "price": 0.0,
+      "median": 0.97,
+      "volume": "40461"
+    },
+    {
+      "timestamp": "2026-05-15T14:00:03.187424",
+      "price": 0.0,
+      "median": 0.98,
+      "volume": "40779"
+    },
+    {
+      "timestamp": "2026-05-15T15:00:02.603407",
+      "price": 0.0,
+      "median": 0.97,
+      "volume": "40990"
+    },
+    {
+      "timestamp": "2026-05-15T16:00:02.955399",
+      "price": 0.0,
+      "median": 0.97,
+      "volume": "41251"
     }
   ],
   "Recoil Case": [
@@ -8117,6 +8141,30 @@
       "price": 0.0,
       "median": 0.6,
       "volume": "51053"
+    },
+    {
+      "timestamp": "2026-05-15T13:00:02.775075",
+      "price": 0.59,
+      "median": 0.6,
+      "volume": "50901"
+    },
+    {
+      "timestamp": "2026-05-15T14:00:03.187424",
+      "price": 0.6,
+      "median": 0.6,
+      "volume": "51338"
+    },
+    {
+      "timestamp": "2026-05-15T15:00:02.603407",
+      "price": 0.0,
+      "median": 0.61,
+      "volume": "52237"
+    },
+    {
+      "timestamp": "2026-05-15T16:00:02.955399",
+      "price": 0.61,
+      "median": 0.6,
+      "volume": "52790"
     }
   ],
   "Dreams & Nightmares Case": [
@@ -12179,6 +12227,30 @@
       "price": 2.04,
       "median": 2.09,
       "volume": "141589"
+    },
+    {
+      "timestamp": "2026-05-15T13:00:02.775075",
+      "price": 0.0,
+      "median": 2.13,
+      "volume": "142946"
+    },
+    {
+      "timestamp": "2026-05-15T14:00:03.187424",
+      "price": 0.0,
+      "median": 2.13,
+      "volume": "143307"
+    },
+    {
+      "timestamp": "2026-05-15T15:00:02.603407",
+      "price": 0.0,
+      "median": 2.14,
+      "volume": "144618"
+    },
+    {
+      "timestamp": "2026-05-15T16:00:02.955399",
+      "price": 0.0,
+      "median": 2.16,
+      "volume": "145335"
     }
   ],
   "Snakebite Case": [
@@ -16241,6 +16313,30 @@
       "price": 0.0,
       "median": 0.99,
       "volume": "13918"
+    },
+    {
+      "timestamp": "2026-05-15T13:00:02.775075",
+      "price": 1.0,
+      "median": 1.0,
+      "volume": "14071"
+    },
+    {
+      "timestamp": "2026-05-15T14:00:03.187424",
+      "price": 0.0,
+      "median": 1.0,
+      "volume": "14235"
+    },
+    {
+      "timestamp": "2026-05-15T15:00:02.603407",
+      "price": 0.0,
+      "median": 0.99,
+      "volume": "14513"
+    },
+    {
+      "timestamp": "2026-05-15T16:00:02.955399",
+      "price": 1.0,
+      "median": 1.0,
+      "volume": "14988"
     }
   ],
   "Operation Broken Fang Case": [
@@ -20307,6 +20403,30 @@
       "price": 0.0,
       "median": 10.69,
       "volume": "769"
+    },
+    {
+      "timestamp": "2026-05-15T13:00:02.775075",
+      "price": 0.0,
+      "median": 10.7,
+      "volume": "780"
+    },
+    {
+      "timestamp": "2026-05-15T14:00:03.187424",
+      "price": 10.71,
+      "median": 10.69,
+      "volume": "810"
+    },
+    {
+      "timestamp": "2026-05-15T15:00:02.603407",
+      "price": 10.63,
+      "median": 10.63,
+      "volume": "850"
+    },
+    {
+      "timestamp": "2026-05-15T16:00:02.955399",
+      "price": 0.0,
+      "median": 10.63,
+      "volume": "895"
     }
   ],
   "Prisma 2 Case": [
@@ -24361,6 +24481,30 @@
       "price": 2.54,
       "median": 2.56,
       "volume": "9097"
+    },
+    {
+      "timestamp": "2026-05-15T13:00:02.775075",
+      "price": 2.55,
+      "median": 2.54,
+      "volume": "9209"
+    },
+    {
+      "timestamp": "2026-05-15T14:00:03.187424",
+      "price": 2.55,
+      "median": 2.55,
+      "volume": "9311"
+    },
+    {
+      "timestamp": "2026-05-15T15:00:02.603407",
+      "price": 0.0,
+      "median": 2.55,
+      "volume": "9288"
+    },
+    {
+      "timestamp": "2026-05-15T16:00:02.955399",
+      "price": 2.54,
+      "median": 2.55,
+      "volume": "9340"
     }
   ],
   "Clutch Case": [
@@ -28427,6 +28571,30 @@
       "price": 0.0,
       "median": 1.12,
       "volume": "9579"
+    },
+    {
+      "timestamp": "2026-05-15T13:00:02.775075",
+      "price": 1.17,
+      "median": 1.16,
+      "volume": "9729"
+    },
+    {
+      "timestamp": "2026-05-15T14:00:03.187424",
+      "price": 0.0,
+      "median": 1.16,
+      "volume": "9690"
+    },
+    {
+      "timestamp": "2026-05-15T15:00:02.603407",
+      "price": 0.0,
+      "median": 1.16,
+      "volume": "9745"
+    },
+    {
+      "timestamp": "2026-05-15T16:00:02.955399",
+      "price": 0.0,
+      "median": 1.16,
+      "volume": "9746"
     }
   ]
 }
