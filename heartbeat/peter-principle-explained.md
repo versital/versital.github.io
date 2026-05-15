@@ -3,7 +3,7 @@
 In most companies, when someone is great at their job, they get promoted. It seems like a fair and logical system. But according to management theorist Laurence J. Peter, this system contains a fatal flaw that eventually leads to widespread incompetence.
 
 ## 1. What is the Peter Principle?
-The Peter Principle states that in a hierarchy, every employee tends to rise to **their level of incompetence.**
+The Peter Principle states that in an organizational hierarchy, employees tend to rise to **their level of incompetence.**
 
 ### How it works:
 1. An employee is hired for a role they are competent in (e.g., a great software engineer).
