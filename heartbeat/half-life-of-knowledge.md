@@ -9,7 +9,7 @@ Depending on the field, the half-life of knowledge varies wildly.
 
 - **The Short Half-Life (Fast Decay):** In fields like **Frontend Web Development** or **AI Research**, the half-life can be as short as 2-5 years. A framework that was "industry standard" in 2022 may be irrelevant by 2026.
 - **The Medium Half-Life:** In fields like **Medicine** or **Psychology**, the half-life might be 10-20 years. New clinical trials and brain imaging techniques constantly refine our understanding of how the body and mind work.
-- **The Long Half-Lief (Slow Decay):** In fields like **Mathematics** or **Euclidian Geometry**, the half-life is effectively infinite. A theorem proven 2,000 years ago is just as true today as it was then.
+- **The Long Half-Life (Slow Decay):** In fields like **Mathematics** or **Euclidian Geometry**, the half-life is effectively infinite. A theorem proven 2,000 years ago is just as true today as it was then.
 
 ## 2. The Contrast: Lindy Effect vs. Half-Life
 It is helpful to compare the Half-Life of Knowledge with the **Lindy Effect** (which suggests that the longer something has survived, the longer it is likely to survive).
