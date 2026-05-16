@@ -2,7 +2,7 @@
 
 We often think of performance as a result of skill, effort, and intelligence. But there is a hidden, powerful variable that can either accelerate a person's growth or stifle it completely: **the expectations of others.**
 
-This is captured in two opposing psychological phenomena: the **Pygmalion Effect** and the **Golem Effect**.
+This is captured in two opposing psychological phenomena: the **Pygmalion Effect** and the the **Golem Effect**.
 
 ## 1. The Pygmalion Effect: The Upward Spiral
 The Pygmalion Effect (also known as the Rosenthal Effect) is a psychological phenomenon where higher expectations lead to an increase in performance.
