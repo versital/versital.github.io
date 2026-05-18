@@ -5,7 +5,7 @@ You meet someone for the first time. They are well-dressed, articulate, and have
 You have just experienced the **Halo Effect**.
 
 ## 1. What is the Halo Effect?
-The Halo Effect is a cognitive bias where our overall impression of a person ("They are likable") colors our judgment of their specific traits ("They must be smart"). 
+The Halo Effect is a cognitive bias where our overall impression of a person colors our judgment of their specific traits. 
 
 Essentially, the brain takes a shortcut: if we perceive one positive trait in someone, we subconsciously assume they possess other positive traits as well. The "halo" of the first positive trait blinds us to a more objective evaluation of the rest of the person.
 
