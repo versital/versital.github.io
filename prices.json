@@ -4379,6 +4379,12 @@
       "price": 0.97,
       "median": 0.98,
       "volume": "37904"
+    },
+    {
+      "timestamp": "2026-05-17T19:00:02.381922",
+      "price": 0.0,
+      "median": 0.97,
+      "volume": "37797"
     }
   ],
   "Recoil Case": [
@@ -8765,6 +8771,12 @@
       "price": 0.0,
       "median": 0.6,
       "volume": "47541"
+    },
+    {
+      "timestamp": "2026-05-17T19:00:02.381922",
+      "price": 0.0,
+      "median": 0.6,
+      "volume": "47738"
     }
   ],
   "Dreams & Nightmares Case": [
@@ -13151,6 +13163,12 @@
       "price": 2.14,
       "median": 2.14,
       "volume": "134505"
+    },
+    {
+      "timestamp": "2026-05-17T19:00:02.381922",
+      "price": 2.14,
+      "median": 2.15,
+      "volume": "133849"
     }
   ],
   "Snakebite Case": [
@@ -17537,6 +17555,12 @@
       "price": 0.0,
       "median": 1.0,
       "volume": "13952"
+    },
+    {
+      "timestamp": "2026-05-17T19:00:02.381922",
+      "price": 0.0,
+      "median": 1.0,
+      "volume": "13971"
     }
   ],
   "Operation Broken Fang Case": [
@@ -21927,6 +21951,12 @@
       "price": 10.98,
       "median": 10.98,
       "volume": "740"
+    },
+    {
+      "timestamp": "2026-05-17T19:00:02.381922",
+      "price": 10.98,
+      "median": 10.98,
+      "volume": "728"
     }
   ],
   "Prisma 2 Case": [
@@ -26305,6 +26335,12 @@
       "price": 0.0,
       "median": 2.55,
       "volume": "9784"
+    },
+    {
+      "timestamp": "2026-05-17T19:00:02.381922",
+      "price": 2.56,
+      "median": 2.55,
+      "volume": "9766"
     }
   ],
   "Clutch Case": [
@@ -30695,6 +30731,12 @@
       "price": 0.0,
       "median": 1.17,
       "volume": "8599"
+    },
+    {
+      "timestamp": "2026-05-17T19:00:02.381922",
+      "price": 1.17,
+      "median": 1.17,
+      "volume": "8610"
     }
   ]
 }
